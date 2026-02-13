@@ -14,29 +14,31 @@ html, body {
 }
 canvas { position: fixed; inset: 0; z-index: 1; }
 
-.center { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 10; }
+.center { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 10; width: 90%; max-width: 720px; }
 
+/* ✉️ PHONG THƯ */
 #envelope {
-    width: 180px; height: 120px; background: #fdf5e6; border-radius: 8px;
+    width: 160px; height: 110px; background: #fdf5e6; border-radius: 8px;
     box-shadow: 0 0 40px rgba(255, 255, 255, 0.1), 0 10px 30px rgba(0,0,0,0.5);
     cursor: pointer; display: none; animation: pulseEnvelope 1.6s infinite;
 }
 #envelope::before {
     content: ""; position: absolute; top: 0; left: 0;
-    border-left: 90px solid transparent; border-right: 90px solid transparent; border-top: 70px solid #ecd9b5; z-index: 2;
+    border-left: 80px solid transparent; border-right: 80px solid transparent; border-top: 65px solid #ecd9b5; z-index: 2;
 }
 .heart-seal {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -20%);
-    width: 40px; height: 40px; background: #ff4d6d; z-index: 3;
+    width: 35px; height: 35px; background: #ff4d6d; z-index: 3;
     clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
 }
 @keyframes pulseEnvelope { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } }
+
+/* 💌 BỨC THƯ TRONG SUỐT */
 #letter {
-    width: 720px; 
-    background: rgba(255, 255, 255, 0.03); 
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 12px; overflow: hidden; display: none; cursor: pointer; 
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 12px; overflow-y: auto; max-height: 85vh; display: none; cursor: pointer; 
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); z-index: 15;
     border: 1px solid rgba(255, 255, 255, 0.15);
     transition: all 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045);
@@ -49,28 +51,47 @@ canvas { position: fixed; inset: 0; z-index: 1; }
 
 .letter-header { 
     background: rgba(255, 255, 255, 0.05); 
-    padding: 15px 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
-    font-size: 1.3rem; font-weight: bold; color: #fff;
+    padding: 12px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    font-size: 1.1rem; font-weight: bold; color: #fff;
 }
 
-#letterContent { display: flex; min-height: 350px; }
-.text-section { flex: 1.4; padding: 40px; border-right: 1px solid rgba(255, 255, 255, 0.1); }
-#loveText { line-height: 2; font-size: 1.2rem; color: #fff; opacity: 0; transition: 1s ease; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+#letterContent { display: flex; flex-direction: row; min-height: 300px; }
+
+/* Mobile Adaptive */
+@media (max-width: 600px) {
+    #letterContent { flex-direction: column-reverse; } /* Đưa ảnh lên trên chữ trên mobile */
+    .text-section { border-right: none !important; border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 25px !important; }
+    #loveText { font-size: 1rem !important; line-height: 1.6 !important; }
+    .photo-section { padding: 20px !important; }
+    #photoSlot { width: 180px !important; height: 220px !important; }
+}
+
+.text-section { flex: 1.4; padding: 35px; border-right: 1px solid rgba(255, 255, 255, 0.1); }
+#loveText { line-height: 1.8; font-size: 1.1rem; color: #fff; opacity: 0; transition: 1s ease; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
 #loveText.show { opacity: 1; }
-.gray-box { background: rgba(255, 255, 255, 0.1); padding: 12px; border-radius: 6px; font-size: 0.95rem; color: #ddd; margin-bottom: 25px; }
+.gray-box { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 6px; font-size: 0.85rem; color: #ddd; margin-bottom: 20px; }
 
-.photo-section { flex: 1; padding: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.15); }
-#photoSlot { width: 240px; height: 300px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; position: relative; }
-.photo-label { margin-top: 15px; font-family: monospace; color: #888; }
+.photo-section { flex: 1; padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.15); }
+#photoSlot { width: 220px; height: 280px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; position: relative; }
 
+/* 🖼️ ẢNH */
 #photo {
-    position: fixed; left: 50%; top: 50%; width: 400px; height: 400px;
-    transform: translate(-50%, -50%) scale(0.5); border-radius: 20px;
+    position: fixed; left: 50%; top: 50%; width: 300px; height: 300px;
+    transform: translate(-50%, -50%) scale(0.5); border-radius: 15px;
     overflow: hidden; opacity: 0; z-index: 100;
-    transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 #photo img { width: 100%; height: 100%; object-fit: cover; }
-#photo.shrink { width: 240px !important; height: 300px !important; border: 4px solid rgba(255, 255, 255, 0.9); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+#photo.shrink { 
+    width: 200px !important; height: 260px !important; 
+    border: 3px solid rgba(255, 255, 255, 0.9); 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+}
+
+/* Fix cho mobile photo shrink */
+@media (max-width: 600px) {
+    #photo.shrink { width: 180px !important; height: 220px !important; }
+}
 </style>
 </head>
 <body>
@@ -83,18 +104,17 @@ canvas { position: fixed; inset: 0; z-index: 1; }
     <div id="letterContent">
         <div class="text-section">
             <div id="loveText">
-    <div class="gray-box">Gửi đến người con gái quan trọng nhất của anh...</div>
-    <p>
-        Valentine này, anh không cần socola hay hoa hồng gì cả,
-vì chỉ cần có em bên cạnh là mọi ngày đều trở nên đặc biệt.
-Cảm ơn em vì đã đến, ở lại và làm thế giới của anh dịu dàng hơn.
-Chúc tình yêu của chúng ta luôn ấm áp, bình yên và đầy yêu thương.
-Valentine hạnh phúc nhé, người anh yêu<br><br>
-        <span style="color: #ff4d6d; font-weight: bold; font-size: 1.5rem; text-shadow: 0 0 15px rgba(255,77,109,0.8);">
-            🌸 Mãi yêu  🌸
-        </span>
-    </p>
-</div>
+                <div class="gray-box">Gửi đến người con gái quan trọng nhất của anh...</div>
+                <p>
+                    Valentine này, anh không cần socola hay hoa hồng gì cả, vì chỉ cần có em bên cạnh là mọi ngày đều trở nên đặc biệt. 
+                    Cảm ơn em vì đã đến, ở lại và làm thế giới của anh dịu dàng hơn. 
+                    Chúc tình yêu của chúng ta luôn ấm áp, bình yên và đầy yêu thương.<br><br>
+                    Valentine hạnh phúc nhé, người anh yêu<br><br>
+                    <span style="color: #ff4d6d; font-weight: bold; font-size: 1.3rem; text-shadow: 0 0 15px rgba(255,77,109,0.8);">
+                        🌸 Mãi yêu  🌸
+                    </span>
+                </p>
+            </div>
         </div>
         <div class="photo-section">
             <div id="photoSlot"></div>
@@ -110,9 +130,15 @@ const ctx = canvas.getContext("2d");
 let width, height, stars = [], step = 0, time = 0;
 let breaking = false;
 
-const COUNT = 750, HEART_SIZE = 12;
+// Giảm số lượng hạt trên mobile để mượt hơn
+const isMobile = window.innerWidth < 600;
+const COUNT = isMobile ? 400 : 750; 
+const HEART_SIZE = isMobile ? 8 : 12;
 
-function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+function resize() { 
+    width = canvas.width = window.innerWidth; 
+    height = canvas.height = window.innerHeight; 
+}
 window.addEventListener('resize', resize); resize();
 
 function heartShape(t) { return { x: 16 * Math.pow(Math.sin(t), 3), y: -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) }; }
@@ -121,7 +147,7 @@ function initStars() {
     stars = [];
     for (let i = 0; i < COUNT; i++) {
         const t = Math.random() * Math.PI * 2, pos = heartShape(t), z = (Math.random() - 0.5) * 2;
-        stars.push({ x: Math.random() * width, y: Math.random() * height, tx: pos.x, ty: pos.y, tz: z, vx: 0, vy: 0, size: Math.random() * 2.5 + 0.5, a: Math.random() * Math.PI * 2, speed: 0.02 + Math.random() * 0.03 });
+        stars.push({ x: Math.random() * width, y: Math.random() * height, tx: pos.x, ty: pos.y, tz: z, vx: 0, vy: 0, size: Math.random() * (isMobile ? 1.5 : 2.5) + 0.5, a: Math.random() * Math.PI * 2, speed: 0.02 + Math.random() * 0.03 });
     }
 }
 initStars();
@@ -175,7 +201,6 @@ document.onclick = () => {
 
 function draw() {
     ctx.clearRect(0, 0, width, height); 
-    
     time += 0.045; 
     const beat = (step > 0 && step < 5) ? (1 + Math.sin(time * 2.5) * 0.1) : 1;
 
@@ -197,11 +222,10 @@ function draw() {
         const alpha = 0.5 + Math.abs(Math.sin(time + s.a)) * 0.5;
         ctx.beginPath(); 
         ctx.arc(s.x, s.y, s.size * (1 + s.tz * 0.4), 0, Math.PI * 2);
-        
         ctx.fillStyle = `rgba(255, ${80 + s.tz * 60}, ${130 + s.tz * 60}, ${alpha})`;
         
         if(s.tz > 0 && step > 0 && step < 5) { 
-            ctx.shadowBlur = 15; 
+            ctx.shadowBlur = isMobile ? 8 : 15; 
             ctx.shadowColor = "rgba(255, 77, 109, 0.6)"; 
         } else { ctx.shadowBlur = 0; }
         
